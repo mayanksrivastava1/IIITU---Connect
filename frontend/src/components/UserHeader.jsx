@@ -8,57 +8,61 @@ import { useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import { useState } from "react";
 import useShowToast from "../hooks/useShowToast";
+import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
 const UserHeader = ({user}) => {
     
     const toast = useToast()
     const currentUser = useRecoilValue(userAtom)
-    const [following, setFollowing] = useState(user.followers.includes(currentUser._id))
-    const [updating, setUpdating] = useState(false)
-
-    const showToast = useShowToast()
     
-    const handleFollowUnfollow = async () =>{
-      if(!currentUser){
-        showToast("Error","Please Login to Folllow","error")
+    const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
 
-      }
-      if(updating) return;
-      setUpdating(true)
+    // const [following, setFollowing] = useState(user.followers.includes(currentUser?._id))
+    // const [updating, setUpdating] = useState(false)
 
-      try {
-        const res = await fetch(`api/users/follow/${user._id}`,{
-          method:"POST",
-          headers:{
-            "Content-Type": "application/json"
-          },
-        });
+    // const showToast = useShowToast()
+    
+    // const handleFollowUnfollow = async () =>{
+    //   if(!currentUser){
+    //     showToast("Error","Please Login to Folllow","error")
 
-        const data = await res.json();
+    //   }
+    //   if(updating) return;
+    //   setUpdating(true)
 
-        if(data.error){
-          showToast("Error",data.error,"error")
-          return;
-        }
-        if(following){
-          showToast("Success",`Unfollowed ${user.name}`, "success")
-          user.followers.pop()
-        }else{
-          showToast("Success",`Followed ${user.name}`, "success")
-          user.followers.push(currentUser._id)
-        }
+    //   try {
+    //     const res = await fetch(`api/users/follow/${user._id}`,{
+    //       method:"POST",
+    //       headers:{
+    //         "Content-Type": "application/json"
+    //       },
+    //     });
+
+    //     const data = await res.json();
+
+    //     if(data.error){
+    //       showToast("Error",data.error,"error")
+    //       return;
+    //     }
+    //     if(following){
+    //       showToast("Success",`Unfollowed ${user.name}`, "success")
+    //       user.followers.pop()
+    //     }else{
+    //       showToast("Success",`Followed ${user.name}`, "success")
+    //       user.followers.push(currentUser?._id)
+    //     }
 
 
-        setFollowing(!following)
+    //     setFollowing(!following)
 
-        console.log(data)
-      } catch (error) {
-        showToast("Error",error,"error")
-      }finally{
-        setUpdating(false)
-      }
+    //     console.log(data)
+    //   } catch (error) {
+    //     showToast("Error",error,"error")
+    //   }finally{
+    //     setUpdating(false)
+    //   }
       
-    }
+    // }
     
     const copyURL=()=>{
         const currentURL= window.location.href;
@@ -89,7 +93,7 @@ const UserHeader = ({user}) => {
               p={1}
               borderRadius={"full"}
             >
-              threads.net
+              IIITU Connect
             </Text>
           </Flex>
         </Box>
@@ -116,14 +120,14 @@ const UserHeader = ({user}) => {
       </Flex>
       <Text>{user.bio}</Text>
       {
-        currentUser._id === user._id && (
+        currentUser?._id === user._id && (
           <Link to='/update'>
             <Button size={"sm"}>Update Profile</Button>
           </Link>
         )
       }
       {
-        currentUser._id !== user._id && (
+        currentUser?._id !== user._id && (
           <Button size={"sm"} onClick={handleFollowUnfollow} isLoading= {updating}>
             {following ? "Unfollow": "Follow"}
           </Button>
@@ -133,7 +137,7 @@ const UserHeader = ({user}) => {
         <Flex gap={2} alignItems={"center"}>
           <Text color={"gray.light"}>{user.followers.length} followers</Text>
           <Box w="1" h="1" bg={"gray.light"} borderRadius={"full"}></Box>
-          <Link color={"gray.light"}>instagram.com</Link>
+          <Link color={"gray.light"}>iiituconnect.com</Link>
         </Flex>
         <Flex>
           <Box className="icon-container">

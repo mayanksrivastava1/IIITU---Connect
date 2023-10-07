@@ -20,6 +20,7 @@ import { BsFileImageFill, BsFillImageFill } from 'react-icons/bs';
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import { useParams } from "react-router-dom";
+import postsAtom from '../atoms/postsAtom';
 
 const MAX_CHAR = 500;
 
@@ -31,8 +32,9 @@ const CreatePost = () => {
     const [remainingChar,setRemainingChar] = useState(MAX_CHAR)
     const user = useRecoilValue(userAtom);
     const showToast = useShowToast()
-	const [loading, setLoading] = useState(false);
-	const { username } = useParams();
+	  const [loading, setLoading] = useState(false);
+	  const { username } = useParams();
+    const [posts,setPosts] = useRecoilState(postsAtom)
 
     const handleTextChange =  (e)=>{
         const inputText = e.target.value
@@ -83,12 +85,12 @@ const CreatePost = () => {
       <Button
         position={"fixed"}
         bottom={10}
-        right={10}
-        leftIcon={<AddIcon/>}
+        right={5}
         bg = {useColorModeValue("gray.300","gray.dark")}
         onClick={onOpen}
+        size={{ base:'sm' ,sm: 'md'}}
       > 
-      Post
+      <AddIcon/>
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
