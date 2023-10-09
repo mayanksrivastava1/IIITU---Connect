@@ -21,6 +21,11 @@ This project was built using Vite, React, Chakra UI, Node.js, Express.js, and So
 - **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine, used for building scalable network applications.
 - **Express.js**: A fast, unopinionated, and minimalist web framework for Node.js, used for building web applications and APIs.
 - **Socket.io**: A library that enables real-time, bi-directional communication between web clients and servers.
+- ## Screenshots
+
+![Screenshot 1](images/screenshot1.png)
+![Screenshot 2](images/screenshot2.png)
+![Screenshot 3](images/screenshot3.png)
 
 ## Installation
 
