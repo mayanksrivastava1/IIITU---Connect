@@ -18,6 +18,11 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
+app.use(cors({
+  origin: "https://iiitu-connect.netlify.app",  // Allow requests from this origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,  // Allow credentials (cookies, authorization headers, etc.)
+}));
 
 app.use(express.json({limit :'50mb'})); // To parse Json data in req.body
 app.use(express.urlencoded({extended:true}))
