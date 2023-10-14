@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js'
 import {v2 as cloudinary} from "cloudinary"
-
+import cors from 'cors'
 
 dotenv.config()
 const PORT = process.env.PORT || 5000
@@ -18,6 +18,11 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
+app.use(cors({
+  origin: "https://iiitu-sm-connect.vercel.app/",  // Allow requests from this origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,  // Allow credentials (cookies, authorization headers, etc.)
+}));
 
 app.use(express.json({limit :'50mb'})); // To parse Json data in req.body
 app.use(express.urlencoded({extended:true}))
