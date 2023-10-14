@@ -19,7 +19,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 app.use(cors({
-  origin: "https://iiitu-sm-connect.vercel.app/",  // Allow requests from this origin
+  origin: "https://iiitu-sm-connect.vercel.app",  // Allow requests from this origin
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,  // Allow credentials (cookies, authorization headers, etc.)
 }));
